@@ -1,4 +1,4 @@
-# Whoisthemurder_Lucas
+# Whoisthemurder_yasmin
 
 Who Is The Murder:
 
@@ -10,7 +10,7 @@ Lucas De Andres,
 Yamila Gambaro,
 Federico Garcia,
 Yasmin Kassem,
-Belen Anlaji Salas 
+Belen Salas 
 y Ezequiel Tello
 
-Esta versión de Who Is The Murder corresponde al final del alumno Lucas De Andres, que realizo una version modificada del trabajo práctico grupal Who Is The Murder.
+Esta versión de Who Is The Murder corresponde al final de la alumna Yasmin Kassem, que realizo una version modificada del trabajo práctico grupal Who Is The Murder.
