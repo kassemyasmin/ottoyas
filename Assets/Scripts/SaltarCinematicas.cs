@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
+using UnityEngine.Analytics;
 using System.Collections.Generic;
 
 public class SaltarCinematicas : MonoBehaviour
@@ -15,7 +16,6 @@ public class SaltarCinematicas : MonoBehaviour
 
     public GameObject skipCanvas;
 
-    private Analytics gAna;
     private LevelManager lm;
     private MeGustoNoMeGusto mg;
     public UnityEngine.Video.VideoPlayer movTexture;
@@ -33,10 +33,9 @@ public class SaltarCinematicas : MonoBehaviour
     void Start()
     {
         principalCamera = FindObjectOfType<Camera>().gameObject;
-        gAna = FindObjectOfType<Analytics>();
         lm = FindObjectOfType<LevelManager>();
         mg = FindObjectOfType<MeGustoNoMeGusto>();
-        timerVideo = GetComponent<TimerVideos>();
+        timerVideo = GetComponent<TimerVideos>();  
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible=true;
 		StartCoroutine(ShowVideos());
@@ -55,23 +54,17 @@ public class SaltarCinematicas : MonoBehaviour
 
                 movTexture.Stop();
 
-                Debug.LogError("cosocosocosocosocosocosocosocosocosocosocosocosocosocosocosocosocosocosocosocosocoso");
-
-                UnityEngine.Analytics.Analytics.CustomEvent("NoCinematicasHastaFinal", new Dictionary<string, object>
-                {
-                { "Scene", SceneManager.GetActiveScene().name }
-                });
-
-                UnityEngine.Analytics.Analytics.FlushEvents();
-
-
-
                 if (lm.FirstLoad)
                 {
-                    gAna.gv4.LogEvent(new EventHitBuilder()
-                    .SetEventCategory("NoCinematicasHastaFinal")
-                    .SetEventAction(SceneManager.GetActiveScene().name));
-                    gAna.gv4.DispatchHits();
+
+                    UnityEngine.Analytics.Analytics.CustomEvent("NoCinematicasHastaFinal", new Dictionary<string, object>
+                    {
+                        {
+                            "Scene", SceneManager.GetActiveScene().name 
+                        }
+                    });
+
+                    UnityEngine.Analytics.Analytics.FlushEvents();
                 }
 
                 if (!second && secondClip != null)
@@ -122,10 +115,16 @@ public class SaltarCinematicas : MonoBehaviour
     private void OnLoopPointReached(UnityEngine.Video.VideoPlayer _source)
     {
         movTexture.Stop();
-        gAna.gv4.LogEvent(new EventHitBuilder()
-                .SetEventCategory("CinematicasHastaFinal")
-                .SetEventAction(SceneManager.GetActiveScene().name));
-        gAna.gv4.DispatchHits();
+
+        UnityEngine.Analytics.Analytics.CustomEvent("CinematicasHastaFinal", new Dictionary<string, object>
+                    { 
+                        {
+                            "Scene", SceneManager.GetActiveScene().name
+                        }
+                    });
+
+        UnityEngine.Analytics.Analytics.FlushEvents();
+
 
         if (!second && secondClip != null)
             StartSecondClip();
